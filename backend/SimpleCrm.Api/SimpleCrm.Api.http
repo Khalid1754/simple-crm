@@ -1,0 +1,34 @@
+# Testa API:t direkt i Visual Studio / VS Code (REST Client) / Rider.
+@host = http://localhost:5000
+
+### 1. Logga in med demo-användaren och kopiera "token" från svaret
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo@crm.se",
+  "password": "Demo123!"
+}
+
+### 2. Klistra in token här
+@token = KLISTRA_IN_TOKEN_HÄR
+
+### Hämta alla kunder (med valfri sökning)
+GET {{host}}/api/customers?search=ab
+Authorization: Bearer {{token}}
+
+### Skapa en kund
+POST {{host}}/api/customers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Testbolaget AB",
+  "email": "info@testbolaget.se",
+  "phone": "08-123 456",
+  "city": "Stockholm"
+}
+
+### Hämta affärer
+GET {{host}}/api/deals
+Authorization: Bearer {{token}}

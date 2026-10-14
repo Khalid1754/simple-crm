@@ -1,0 +1,19 @@
+# Startar SQL Server i Docker. Kör: docker compose up -d
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: simple-crm-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      # Samma lösenord som i backend/SimpleCrm.Api/appsettings.json.
+      # Kraven: minst 8 tecken med stora/små bokstäver, siffror och specialtecken.
+      MSSQL_SA_PASSWORD: "Your_strong_Passw0rd"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      # Datan sparas i en volym så att den finns kvar när containern startas om.
+      - sqldata:/var/opt/mssql
+
+volumes:
+  sqldata:
